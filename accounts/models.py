@@ -2,7 +2,7 @@ from django.db import models
 from djmoney.models.fields import MoneyField
 from django.contrib.auth.models import AbstractUser
 
-class Account(AbstractUser):
+class Account(models.Model):
     id = models.IntegerField(primary_key=True, editable=False)
     id_pessoa = models.IntegerField(unique=True, editable=False)
     saldo = MoneyField(max_digits=15, decimal_places=2)
