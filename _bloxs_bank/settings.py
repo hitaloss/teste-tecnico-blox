@@ -15,7 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = bool(os.getenv("DEBUG", False))
+# if the project is at production, this DEBUG has to be False
+DEBUG = bool(os.getenv("DEBUG", True))
 
 ALLOWED_HOSTS = []
 
