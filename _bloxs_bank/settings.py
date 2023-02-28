@@ -36,6 +36,19 @@ INSTALLED_APPS = [
     "accounts",
 ]
 
+# Docs settings for swagger-ui
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "SWAGGER": "2.0",
+    "TITLE": "Bloxs Bank API",
+    "DESCRIPTION": "Bloxs Bank - Teste Técnico",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
