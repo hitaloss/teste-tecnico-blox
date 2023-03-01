@@ -4,6 +4,7 @@ from .models import Account
 from .serializers import AccountsSerializer
 from .serializers import AccountsDetailSerializer
 from django.http import Http404
+from .permissions import AccountDeactivated
 
 
 class AccountCreateView(generics.CreateAPIView):
@@ -12,6 +13,8 @@ class AccountCreateView(generics.CreateAPIView):
 
 
 class AccountBalanceDetailView(generics.RetrieveAPIView):
+    permission_classes = [AccountDeactivated]
+
     queryset = Account.objects.all()
     serializer_class = AccountsDetailSerializer
 
