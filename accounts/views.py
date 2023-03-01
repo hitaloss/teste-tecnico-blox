@@ -1,8 +1,8 @@
-import ipdb
 from rest_framework import generics
 from .models import Account
 from .serializers import AccountsSerializer
-from .serializers import AccountsDetailSerializer
+from .serializers import AccountsBalanceDetailSerializer
+from .serializers import AccountsActiveFlagDetailSerializer
 from django.http import Http404
 from .permissions import AccountDeactivated
 
@@ -16,7 +16,7 @@ class AccountBalanceDetailView(generics.RetrieveAPIView):
     permission_classes = [AccountDeactivated]
 
     queryset = Account.objects.all()
-    serializer_class = AccountsDetailSerializer
+    serializer_class = AccountsBalanceDetailSerializer
 
     def get_object(self):
         account_id = self.kwargs.get("pk")
@@ -24,3 +24,10 @@ class AccountBalanceDetailView(generics.RetrieveAPIView):
         if not account:
             raise Http404
         return account
+
+
+class AccountActiveDetailView(generics.UpdateAPIView):
+    permission_classes = [AccountDeactivated]
+
+    queryset = Account.objects.all()
+    serializer_class = AccountsActiveFlagDetailSerializer

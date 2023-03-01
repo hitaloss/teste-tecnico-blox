@@ -30,9 +30,15 @@ class AccountsSerializer(serializers.ModelSerializer):
         return obj
 
 
-class AccountsDetailSerializer(serializers.ModelSerializer):
+class AccountsBalanceDetailSerializer(serializers.ModelSerializer):
     saldo = MoneyField(max_digits=10, decimal_places=2)
 
     class Meta:
         model = Account
         fields = ["saldo"]
+
+
+class AccountsActiveFlagDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ["flag_ativo"]
