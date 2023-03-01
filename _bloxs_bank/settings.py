@@ -15,7 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = bool(os.getenv("DEBUG", False))
+# if the project is at production, this DEBUG has to be False
+DEBUG = bool(os.getenv("DEBUG", True))
 
 ALLOWED_HOSTS = []
 
@@ -31,8 +32,22 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "djmoney",
+    "drf_spectacular",
     "accounts",
 ]
+
+# Docs settings for swagger-ui
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "SWAGGER": "2.0",
+    "TITLE": "Bloxs Bank API",
+    "DESCRIPTION": "Bloxs Bank - Teste Técnico",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
