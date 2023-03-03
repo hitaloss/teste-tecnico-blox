@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "djmoney",
     "drf_spectacular",
     "accounts",
+    "transactions",
+    "persons",
 ]
 
 # Docs settings for swagger-ui
