@@ -11,6 +11,7 @@ class AccountsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = [
+            "id",
             "id_pessoa",
             "saldo",
             "limite_saque_diario",
@@ -18,7 +19,8 @@ class AccountsSerializer(serializers.ModelSerializer):
             "tipo_conta",
             "data_criacao",
         ]
-        read_only_fields = ["data_criacao"]
+        read_only_fields = ["id", "data_criacao"]
+        depth = 1
 
     def create(self, validated_data):
         id_pessoa = validated_data["id_pessoa"]
