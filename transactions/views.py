@@ -5,12 +5,13 @@ from .serializers import TransactionsSerializer
 from accounts.models import Account
 from djmoney.money import Money
 
-# from .permissions import AccountDeactivated
+from .permissions import AccountDeactivated
 
 
 class DepositView(generics.CreateAPIView):
     serializer_class = TransactionsSerializer
     queryset = Transaction.objects.all()
+    permission_classes = [AccountDeactivated]
 
     def perform_create(self, serializer):
         account_id = self.kwargs.get("pk")
@@ -25,6 +26,7 @@ class DepositView(generics.CreateAPIView):
 class WithdrawView(generics.CreateAPIView):
     serializer_class = TransactionsSerializer
     queryset = Transaction.objects.all()
+    permission_classes = [AccountDeactivated]
 
     def perform_create(self, serializer):
         account_id = self.kwargs.get("pk")
