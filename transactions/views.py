@@ -8,6 +8,14 @@ from djmoney.money import Money
 from .permissions import AccountDeactivated
 
 
+class TransactionListView(generics.ListAPIView):
+    serializer_class = TransactionsSerializer
+
+    def get_queryset(self):
+        account_id = self.kwargs.get("pk")
+        return Transaction.objects.filter(conta_id=account_id)
+
+
 class DepositView(generics.CreateAPIView):
     serializer_class = TransactionsSerializer
     queryset = Transaction.objects.all()
