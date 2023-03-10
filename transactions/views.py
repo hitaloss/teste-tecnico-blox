@@ -4,6 +4,8 @@ from .models import Transaction
 from .serializers import TransactionsSerializer
 from accounts.models import Account
 from djmoney.money import Money
+from django.http import Http404
+
 
 from .permissions import AccountDeactivated
 
@@ -25,7 +27,10 @@ class DepositView(generics.CreateAPIView):
         account_id = self.kwargs.get("pk")
         amount = serializer.validated_data["valor"]
         transaction = Transaction.objects.create(valor=amount, conta_id=account_id)
-        account = Account.objects.get(id=account_id)
+        try:
+            account = Account.objects.get(id=account_id)
+        except Account.DoesNotExist:
+            raise Http404("Account matching query does not exist.")
         account.saldo = account.saldo + Money(amount, "BRL")
         account.save()
         return transaction
