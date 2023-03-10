@@ -44,7 +44,10 @@ class WithdrawView(generics.CreateAPIView):
     def perform_create(self, serializer):
         account_id = self.kwargs.get("pk")
         amount = serializer.validated_data["valor"]
-        account = Account.objects.get(id=account_id)
+        try:
+            account = Account.objects.get(id=account_id)
+        except Account.DoesNotExist:
+            raise Http404("Account matching query does not exist.")
         if account.saldo < Money(amount, "BRL"):
             response_data = {"detail": "Insufficient funds."}
             raise serializers.ValidationError(response_data)
