@@ -5,9 +5,10 @@ from .serializers import AccountsBalanceDetailSerializer
 from .serializers import AccountsActiveFlagDetailSerializer
 from django.http import Http404
 from .permissions import AccountDeactivated
+from transactions.models import Transaction
 
 
-class AccountCreateView(generics.CreateAPIView):
+class AccountView(generics.ListCreateAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountsSerializer
 
